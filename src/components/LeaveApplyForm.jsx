@@ -13,7 +13,7 @@ function LeaveApplyForm({ onApply }) {
     e.preventDefault();
     try {
       await axios.post(
-        'http://localhost:5000/api/leaves',
+        'https://bacendofleave.onrender.com/api/leaves',
         { startDate, endDate, reason },
         {
           headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },

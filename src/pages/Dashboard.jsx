@@ -37,7 +37,7 @@ function Dashboard() {
 
   const fetchLeaves = async (userId) => {
     try {
-      const res = await axios.get(`http://localhost:5000/api/leaves/user/${userId}`, {
+      const res = await axios.get(`https://bacendofleave.onrender.com/api/leaves/user/${userId}`, {
         headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
       });
       setLeaves(res.data);

@@ -38,7 +38,7 @@ function Register() {
     formData.append('role', role);
     if (profile) formData.append('profile', profile);
     try {
-      const res = await axios.post('http://localhost:5000/api/auth/register', formData, {
+      const res = await axios.post('https://bacendofleave.onrender.com/api/auth/register', formData, {
         headers: { 'Content-Type': 'multipart/form-data' },
       });
       setErrors({});

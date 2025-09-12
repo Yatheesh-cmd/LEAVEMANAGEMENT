@@ -23,7 +23,7 @@ function LeaveStatusPage() {
           setError('No employee selected');
           return;
         }
-        const res = await axios.get(`http://localhost:5000/api/leaves/user/${targetUserId}`, {
+        const res = await axios.get(`https://bacendofleave.onrender.com/api/leaves/user/${targetUserId}`, {
           headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
         });
         setLeaves(res.data);

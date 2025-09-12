@@ -1,7 +1,6 @@
-// frontend/src/components/Header.jsx
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { FaSignOutAlt } from 'react-icons/fa'; // Import logout icon from react-icons
+import { FaSignOutAlt } from 'react-icons/fa'; 
 
 function Header() {
   const user = JSON.parse(localStorage.getItem('user')) || {};

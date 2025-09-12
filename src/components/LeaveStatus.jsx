@@ -22,7 +22,7 @@ function LeaveStatus({ leave, updateLeave }) {
       approverData['Employee'] = { profileImage: leave.employeeId.profileImage, name: leave.employeeId.name };
       for (const role of roles.slice(1)) {
         try {
-          const res = await axios.get(`http://localhost:5000/api/leaves/approver/${role}`, {
+          const res = await axios.get(`https://bacendofleave.onrender.com/api/leaves/approver/${role}`, {
             headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
           });
           approverData[role] = res.data;
@@ -49,7 +49,7 @@ function LeaveStatus({ leave, updateLeave }) {
   const handleApprove = async () => {
     try {
       const res = await axios.put(
-        `http://localhost:5000/api/leaves/${leave._id}/approve`,
+        `https://bacendofleave.onrender.com/api/leaves/${leave._id}/approve`,
         {},
         {
           headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
@@ -66,7 +66,7 @@ function LeaveStatus({ leave, updateLeave }) {
   const handleReject = async () => {
     try {
       const res = await axios.put(
-        `http://localhost:5000/api/leaves/${leave._id}/reject`,
+        `https://bacendofleave.onrender.com/api/leaves/${leave._id}/reject`,
         {},
         {
           headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
