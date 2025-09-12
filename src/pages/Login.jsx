@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import api from './api/api';
 
 function Login() {
   const [email, setEmail] = useState('');
@@ -26,14 +26,14 @@ function Login() {
       return;
     }
     try {
-      const res = await axios.post('https://bacendofleave.onrender.com/api/auth/login', { email, password });
-      localStorage.setItem('token', res.data.token);
-      localStorage.setItem('user', JSON.stringify(res.data.user));
+      const data = await api.login(email, password);
+      localStorage.setItem('token', data.token);
+      localStorage.setItem('user', JSON.stringify(data.user));
       setErrors({});
       setServerError('');
       navigate('/dashboard');
     } catch (err) {
-      setServerError(err.response?.data?.message || 'Login failed');
+      setServerError(err);
     }
   };
 

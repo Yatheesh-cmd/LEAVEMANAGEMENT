@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import api from '../api/api';
 
 function EmployeeList() {
   const [employees, setEmployees] = useState([]);
@@ -9,10 +9,8 @@ function EmployeeList() {
 
   const fetchEmployees = async () => {
     try {
-      const res = await axios.get('https://bacendofleave.onrender.com/api/leaves/employees', {
-        headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
-      });
-      setEmployees(res.data);
+      const data = await api.fetchEmployees(localStorage.getItem('token'));
+      setEmployees(data);
       setError(null);
     } catch (err) {
       console.error('Fetch employees error:', err);

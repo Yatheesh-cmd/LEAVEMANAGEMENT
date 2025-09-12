@@ -3,7 +3,7 @@ import Header from '../components/Header';
 import LeaveApplyForm from '../components/LeaveApplyForm';
 import LeaveStatus from '../components/LeaveStatus';
 import EmployeeList from '../components/EmployeeList';
-import axios from 'axios';
+import api from '../api/api';
 
 class ErrorBoundary extends Component {
   state = { hasError: false };
@@ -37,10 +37,8 @@ function Dashboard() {
 
   const fetchLeaves = async (userId) => {
     try {
-      const res = await axios.get(`https://bacendofleave.onrender.com/api/leaves/user/${userId}`, {
-        headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
-      });
-      setLeaves(res.data);
+      const data = await api.fetchLeaves(userId, localStorage.getItem('token'));
+      setLeaves(data);
     } catch (err) {
       console.error('Fetch leaves error:', err);
     }

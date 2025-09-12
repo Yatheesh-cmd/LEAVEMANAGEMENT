@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import api from './api/api';
 
 function Register() {
   const [name, setName] = useState('');
@@ -31,21 +31,13 @@ function Register() {
       setErrors(validationErrors);
       return;
     }
-    const formData = new FormData();
-    formData.append('name', name);
-    formData.append('email', email);
-    formData.append('password', password);
-    formData.append('role', role);
-    if (profile) formData.append('profile', profile);
     try {
-      const res = await axios.post('https://bacendofleave.onrender.com/api/auth/register', formData, {
-        headers: { 'Content-Type': 'multipart/form-data' },
-      });
+      await api.register(name, email, password, role, profile);
       setErrors({});
       setServerError('');
       navigate('/login');
     } catch (err) {
-      setServerError(err.response?.data?.message || 'Registration failed');
+      setServerError(err);
     }
   };
 

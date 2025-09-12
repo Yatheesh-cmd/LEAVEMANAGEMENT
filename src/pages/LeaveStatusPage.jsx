@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import api from '../api/api';
 import LeaveStatus from '../components/LeaveStatus';
 
 function LeaveStatusPage() {
@@ -23,10 +23,8 @@ function LeaveStatusPage() {
           setError('No employee selected');
           return;
         }
-        const res = await axios.get(`https://bacendofleave.onrender.com/api/leaves/user/${targetUserId}`, {
-          headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
-        });
-        setLeaves(res.data);
+        const data = await api.fetchLeaves(targetUserId, localStorage.getItem('token'));
+        setLeaves(data);
         setError(null);
       } catch (err) {
         console.error('Fetch leaves error:', err);

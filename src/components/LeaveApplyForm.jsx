@@ -1,24 +1,17 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import api from '../api/api';
 
 function LeaveApplyForm({ onApply }) {
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
   const [reason, setReason] = useState('');
 
-  
   const today = new Date().toISOString().split('T')[0];
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post(
-        'https://bacendofleave.onrender.com/api/leaves',
-        { startDate, endDate, reason },
-        {
-          headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
-        }
-      );
+      await api.applyLeave(startDate, endDate, reason, localStorage.getItem('token'));
       alert('Leave applied successfully');
       onApply();
       setStartDate('');

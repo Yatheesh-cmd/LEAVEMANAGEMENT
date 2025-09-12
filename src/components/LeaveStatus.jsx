@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../api/api';
 
 const roles = ['Employee', 'Team Lead', 'Project Lead', 'HR', 'CEO'];
 const approverOrder = ['Team Lead', 'Project Lead', 'HR', 'CEO'];
@@ -22,10 +22,8 @@ function LeaveStatus({ leave, updateLeave }) {
       approverData['Employee'] = { profileImage: leave.employeeId.profileImage, name: leave.employeeId.name };
       for (const role of roles.slice(1)) {
         try {
-          const res = await axios.get(`https://bacendofleave.onrender.com/api/leaves/approver/${role}`, {
-            headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
-          });
-          approverData[role] = res.data;
+          const data = await api.fetchApprover(role, localStorage.getItem('token'));
+          approverData[role] = data;
         } catch (err) {
           console.error(`Error fetching approver for ${role}:`, err);
           approverData[role] = { role, profileImage: null, name: `${role} (Not Assigned)` };
@@ -48,14 +46,8 @@ function LeaveStatus({ leave, updateLeave }) {
 
   const handleApprove = async () => {
     try {
-      const res = await axios.put(
-        `https://bacendofleave.onrender.com/api/leaves/${leave._id}/approve`,
-        {},
-        {
-          headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
-        }
-      );
-      updateLeave(res.data);
+      const updatedLeave = await api.approveLeave(leave._id, localStorage.getItem('token'));
+      updateLeave(updatedLeave);
       alert('Leave approved');
     } catch (err) {
       console.error('Approve leave error:', err);
@@ -65,14 +57,8 @@ function LeaveStatus({ leave, updateLeave }) {
 
   const handleReject = async () => {
     try {
-      const res = await axios.put(
-        `https://bacendofleave.onrender.com/api/leaves/${leave._id}/reject`,
-        {},
-        {
-          headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
-        }
-      );
-      updateLeave(res.data);
+      const updatedLeave = await api.rejectLeave(leave._id, localStorage.getItem('token'));
+      updateLeave(updatedLeave);
       alert('Leave rejected');
     } catch (err) {
       console.error('Reject leave error:', err);
