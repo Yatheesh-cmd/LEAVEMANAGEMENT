@@ -164,7 +164,7 @@ function LeaveStatus({ leave, updateLeave }) {
               
               {position.labelPosition === 'below' && (
                 <span className="text-sm font-medium mt-2 text-center whitespace-nowrap">
-                  {approverData?.name || role}
+                  {approverData?.role || role}
                 </span>
               )}
             </div>
