@@ -143,7 +143,7 @@ function LeaveStatus({ leave, updateLeave }) {
             >
               {position.labelPosition === 'above' && (
                 <span className="text-sm font-medium mb-2 text-center whitespace-nowrap">
-                  {approverData?.role || name}
+                  {approverData?.role || role}
                 </span>
               )}
               
@@ -164,7 +164,7 @@ function LeaveStatus({ leave, updateLeave }) {
               
               {position.labelPosition === 'below' && (
                 <span className="text-sm font-medium mt-2 text-center whitespace-nowrap">
-                  {approverData?.role || name}
+                  {approverData?.role || role}
                 </span>
               )}
             </div>
